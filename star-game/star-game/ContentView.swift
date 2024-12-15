@@ -5,7 +5,33 @@
 //  Created by Elizabeth Trenholme on 12/14/24.
 //
 
+//A random number is assigned at the start of the game, and it
+//
+//is up to you to match that goal by clicking on the different
+//
+//stars in order to gain mystical numbers that add to your
+//
+//score! Beware... you must match the score number to the goal
+//
+//number exactly, or the Martians will destroy planet Earth!|
+
 import SwiftUI
+
+//func setTyping(text: String, characterDelay: TimeInterval = 5.0) {
+//  self.text = ""
+//    
+//  let writingTask = DispatchWorkItem { [weak self] in
+//    text.forEach { char in
+//      DispatchQueue.main.async {
+//        self?.text?.append(char)
+//      }
+//      Thread.sleep(forTimeInterval: characterDelay/100)
+//    }
+//  }
+    
+  let queue: DispatchQueue = .init(label: "typespeed", qos: .userInteractive)
+  queue.asyncAfter(deadline: .now() + 0.05, execute: writingTask)
+}
 
 struct ContentView: View {
     @State var counter = 0
