@@ -5,16 +5,6 @@
 //  Created by Elizabeth Trenholme on 12/14/24.
 //
 
-//A random number is assigned at the start of the game, and it
-//
-//is up to you to match that goal by clicking on the different
-//
-//stars in order to gain mystical numbers that add to your
-//
-//score! Beware... you must match the score number to the goal
-//
-//number exactly, or the Martians will destroy planet Earth!|
-
 import SwiftUI
 
 //func setTyping(text: String, characterDelay: TimeInterval = 5.0) {
@@ -29,9 +19,9 @@ import SwiftUI
 //    }
 //  }
     
-  let queue: DispatchQueue = .init(label: "typespeed", qos: .userInteractive)
-  queue.asyncAfter(deadline: .now() + 0.05, execute: writingTask)
-}
+//  let queue: DispatchQueue = .init(label: "typespeed", qos: .userInteractive)
+//  queue.asyncAfter(deadline: .now() + 0.05, execute: writingTask)
+//}
 
 struct ContentView: View {
     @State var counter = 0
@@ -60,7 +50,21 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
-//                    Image("martianchroniclesmobile")
+
+                    VStack {
+                        Text("A random number is assigned at the start of the game, and it")
+                        
+                        Text("is up to you to match that goal by clicking on the different")
+                        
+                        Text("stars in order to gain mystical numbers that add to your")
+                        
+                        Text("score! Beware... you must match the score number to the goal")
+                        
+                        Text("number exactly, or the Martians will destroy planet Earth!|")
+                    }.font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                    //                    Image("martianchroniclesmobile")
 //                        .resizable()
 //                        .cornerRadius(10)
 //                        .aspectRatio(contentMode: .fit)
