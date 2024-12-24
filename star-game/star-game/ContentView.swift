@@ -52,17 +52,9 @@ struct ContentView: View {
                         .foregroundColor(Color.white)
 
                     VStack {
-                        Text("A random number is assigned at the start of the game, and it")
-                        
-                        Text("is up to you to match that goal by clicking on the different")
-                        
-                        Text("stars in order to gain mystical numbers that add to your")
-                        
-                        Text("score! Beware... you must match the score number to the goal")
-                        
-                        Text("number exactly, or the Martians will destroy planet Earth!|")
-                    }.font(.largeTitle)
-                        .fontWeight(.heavy)
+                        Text("A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|")
+                    }.font(.subheadline)
+                        .fontWeight(.regular)
                         .foregroundColor(Color.white)
                     //                    Image("martianchroniclesmobile")
 //                        .resizable()
