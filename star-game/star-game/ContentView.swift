@@ -32,15 +32,7 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            //          Button("Increase Count"){ counter += 1 }
-            //          Button(action: { counter = counter - 1 }) {
-            //            Image(systemName: "arrow.down")
-            //          }
-            //          .buttonStyle(.plain)
-   
             ZStack {
-//                Color(.systemBrown)
-//                    .ignoresSafeArea()
                 VStack {
                     Text("Star Collector")
                         .font(.largeTitle)
@@ -50,10 +42,10 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
-
+                    Spacer()
                     VStack {
                         Text("A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|")
-                    }.font(.subheadline)
+                    }.font(.headline)
                         .fontWeight(.regular)
                         .foregroundColor(Color.white)
                     //                    Image("martianchroniclesmobile")
@@ -61,6 +53,7 @@ struct ContentView: View {
 //                        .cornerRadius(10)
 //                        .aspectRatio(contentMode: .fit)
 //                        .padding(.all)
+                    Spacer()
                     HStack {
                         Button {
                             counter += randomInt1
