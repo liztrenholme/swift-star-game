@@ -7,28 +7,18 @@
 
 import SwiftUI
 
-//func setTyping(text: String, characterDelay: TimeInterval = 5.0) {
-//  self.text = ""
-//    
-//  let writingTask = DispatchWorkItem { [weak self] in
-//    text.forEach { char in
-//      DispatchQueue.main.async {
-//        self?.text?.append(char)
-//      }
-//      Thread.sleep(forTimeInterval: characterDelay/100)
-//    }
-//  }
-    
-//  let queue: DispatchQueue = .init(label: "typespeed", qos: .userInteractive)
-//  queue.asyncAfter(deadline: .now() + 0.05, execute: writingTask)
-//}
 
 struct ContentView: View {
     @State var counter = 0
-    let randomInt1 = Int.random(in: 0..<9)
-    let randomInt2 = Int.random(in: 0..<9)
-    let randomInt3 = Int.random(in: 0..<9)
-    let randomInt4 = Int.random(in: 0..<10)
+    @State var randomInt1 = Int.random(in: 0...15)
+    @State var randomInt2 = Int.random(in: 0...15)
+    @State var randomInt3 = Int.random(in: 0...15)
+    @State var randomInt4 = Int.random(in: 0..<10)
+    @State var goalNumber = Int.random(in: 50...200)
+    @State var wins = 0
+    @State var losses = 0
+    @State var resultMesssage: String = ""
+    @State var textDisplay = ""
     var body: some View {
         
         VStack {
@@ -38,14 +28,13 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .fontWeight(.semibold)
                         .foregroundColor(Color.white)
-                    Text("\(counter)")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .foregroundColor(Color.white)
-                    Spacer()
+                    
                     VStack {
                         Text("A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|")
-                    }.font(.headline)
+//                        Text(textDisplay)
+                    }
+                    .padding([.top, .leading, .trailing], 10.0)
+                    .font(.headline)
                         .fontWeight(.regular)
                         .foregroundColor(Color.white)
                     //                    Image("martianchroniclesmobile")
@@ -54,9 +43,39 @@ struct ContentView: View {
 //                        .aspectRatio(contentMode: .fit)
 //                        .padding(.all)
                     Spacer()
+                    Text(resultMesssage)
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color(hue: 0.153, saturation: 0.293, brightness: 1.0))
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                    VStack {
+                        Text("Score: ")
+                        Text("\(counter)")
+                    }
+                    .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                    HStack {
+                        VStack {
+                            Text("Goal: ")
+                            Text(String(goalNumber))
+                        }
+                        VStack {
+                            Text("Wins: ")
+                            Text(String(wins))
+                        }
+                        VStack {
+                            Text("Losses: ")
+                            Text(String(losses))
+                        }
+                    }.font(.title)
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.white)
+                    Spacer()
                     HStack {
                         Button {
-                            counter += randomInt1
+                            trackMainNum(mainNum: randomInt1)
                         } label: {
                             Image("blackstar")
                                 .resizable()
@@ -68,7 +87,7 @@ struct ContentView: View {
                             
                         }
                         Button {
-                            counter += randomInt2
+                            trackMainNum(mainNum: randomInt2)
                         } label: {
                             Image("redstar")
                                 .resizable()
@@ -78,7 +97,7 @@ struct ContentView: View {
 //                                .opacity(0.7)
                         }
                         Button {
-                            counter += randomInt3
+                            trackMainNum(mainNum: randomInt3)
                         } label: {
                             Image("greenstar")
                                 .resizable()
@@ -89,7 +108,7 @@ struct ContentView: View {
 //                                .opacity(0.7)
                         }
                         Button {
-                            counter += randomInt4
+                            trackMainNum(mainNum: randomInt4)
                         } label: {
                             Image("yellowstar")
                                 .resizable()
@@ -103,7 +122,9 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .opacity(0.8)
                 }
+                Spacer()
             }
+            Spacer()
         }.background(
             Image("martianchroniclesmobile")
                 .resizable()
@@ -112,39 +133,60 @@ struct ContentView: View {
                 .background(Color.black)
         )
     }
+    func incrementWins() {
+        wins += 1
+    }
+    func incrementLosses() {
+        losses += 1
+    }
+    func trackMainNum(mainNum: Int) {
+        // add main to counter, check if equeal to, under or over goal number and return accordingly
+        let updatedNum = mainNum + counter
+        if updatedNum == goalNumber {
+            resultMesssage = "Yay, you've saved the planet!"
+            incrementWins()
+            resetGame()
+        } else if updatedNum > goalNumber {
+            resultMesssage = "Oh noes, the planet has been destroyed!"
+            incrementLosses()
+            resetGame()
+        } else if updatedNum < goalNumber {
+            resultMesssage = ""
+            counter = updatedNum
+        }
+    }
+    func resetGame () {
+        counter = 0
+        goalNumber = Int.random(in: 50...200)
+//        resultMesssage = ""
+        randomInt1 = Int.random(in: 1...15)
+        randomInt2 = Int.random(in: 1...15)
+        randomInt3 = Int.random(in: 1...15)
+        randomInt4 = Int.random(in: 1...15)
+    }
+    func setTyping(characterDelay: TimeInterval = 5.0) {
+        let text = "A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|"
+      textDisplay = ""
+    
+      let writingTask = DispatchWorkItem {
+        text.forEach { char in
+          DispatchQueue.main.async {
+            textDisplay.append(char)
+          }
+          Thread.sleep(forTimeInterval: characterDelay/100)
+        }
+      }
+        
+      let queue: DispatchQueue = .init(label: "typespeed", qos: .userInteractive)
+      queue.asyncAfter(deadline: .now() + 0.05, execute: writingTask)
+    }
+}
+
+func greet(person: String) -> String {
+    let greeting = "Hello, " + person + "!"
+    return greeting
 }
 
 #Preview {
     ContentView()
-}
-
-//struct ContentView:View{
-//    var body:some View{
-//     ImageView()
-//    }
-//}
-struct ImageOverlay: View {
-    var body: some View {
-        VStack {
-            Text("Credit: Ricardo Gomez Angel")
-                .font(.callout)
-                .padding(6)
-                .foregroundColor(.white)
-        }.background(Color.black)
-        .opacity(0.8)
-        .cornerRadius(10.0)
-        .padding(6)
-    }
-}
-
-struct ImageView: View {
-    var body: some View {
-        VStack {
-            Image("blackstar")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .overlay(ImageOverlay(), alignment: .center)
-            Spacer()
-        }
-    }
 }
