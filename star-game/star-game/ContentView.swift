@@ -24,27 +24,24 @@ struct ContentView: View {
         VStack {
             ZStack {
                 VStack {
+                    Spacer()
+
                     Text("Star Collector")
-                        .font(.largeTitle)
+                        .font(.custom("kongtext", size: 26))
                         .fontWeight(.semibold)
                         .foregroundColor(Color.white)
-                    
-                    VStack {
+                    Spacer()
+                    VStack() {
                         Text("A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|")
 //                        Text(textDisplay)
                     }
                     .padding([.top, .leading, .trailing], 10.0)
-                    .font(.headline)
-                        .fontWeight(.regular)
+                    .font(.custom("kongtext", size: 16))
+                    .fontWeight(.light)
                         .foregroundColor(Color.white)
-                    //                    Image("martianchroniclesmobile")
-//                        .resizable()
-//                        .cornerRadius(10)
-//                        .aspectRatio(contentMode: .fit)
-//                        .padding(.all)
                     Spacer()
                     Text(resultMesssage)
-                        .font(.largeTitle)
+                        .font(.custom("kongtext", size: 26))
                         .fontWeight(.heavy)
                         .foregroundColor(Color(hue: 0.153, saturation: 0.293, brightness: 1.0))
                         .multilineTextAlignment(.center)
@@ -53,9 +50,10 @@ struct ContentView: View {
                         Text("Score: ")
                         Text("\(counter)")
                     }
-                    .font(.largeTitle)
+                    .font(.custom("kongtext", size: 18))
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
+                    Spacer()
                     HStack {
                         VStack {
                             Text("Goal: ")
@@ -69,7 +67,7 @@ struct ContentView: View {
                             Text("Losses: ")
                             Text(String(losses))
                         }
-                    }.font(.title)
+                    }.font(.custom("kongtext", size: 12))
                         .fontWeight(.regular)
                         .foregroundColor(Color.white)
                     Spacer()
@@ -169,7 +167,7 @@ struct ContentView: View {
       textDisplay = ""
     
       let writingTask = DispatchWorkItem {
-        text.forEach { char in
+        text.forEach { char in text
           DispatchQueue.main.async {
             textDisplay.append(char)
           }
