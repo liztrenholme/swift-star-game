@@ -18,7 +18,9 @@ struct ContentView: View {
     @State var wins = 0
     @State var losses = 0
     @State var resultMesssage: String = ""
-    @State var textDisplay = ""
+    @State var text = ""
+    @State var shouldHide = false
+    let finalText = "A random number is assigned at the start of the game, and it is up to you to match that goal by tapping on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!"
     var body: some View {
         
         VStack {
@@ -32,8 +34,11 @@ struct ContentView: View {
                         .foregroundColor(Color.white)
                     Spacer()
                     VStack() {
-                        Text("A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|")
-//                        Text(textDisplay)
+                        Text(text)
+                                    Button("Start") {
+                                        self.shouldHide = true
+                                        typeWriter()
+                                    }.opacity(shouldHide ? 0 : 1)
                     }
                     .padding([.top, .leading, .trailing], 10.0)
                     .font(.custom("kongtext", size: 16))
@@ -156,33 +161,44 @@ struct ContentView: View {
     func resetGame () {
         counter = 0
         goalNumber = Int.random(in: 50...200)
-//        resultMesssage = ""
         randomInt1 = Int.random(in: 1...15)
         randomInt2 = Int.random(in: 1...15)
         randomInt3 = Int.random(in: 1...15)
         randomInt4 = Int.random(in: 1...15)
     }
-    func setTyping(characterDelay: TimeInterval = 5.0) {
-        let text = "A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|"
-      textDisplay = ""
-    
-      let writingTask = DispatchWorkItem {
-        text.forEach { char in text
-          DispatchQueue.main.async {
-            textDisplay.append(char)
-          }
-          Thread.sleep(forTimeInterval: characterDelay/100)
+//    func setTyping(characterDelay: TimeInterval = 5.0) {
+//        let text = "A random number is assigned at the start of the game, and it is up to you to match that goal by clicking on the different stars in order to gain mystical numbers that add to your score! Beware... you must match the score number to the goal number exactly, or the Martians will destroy planet Earth!|"
+//      textDisplay = ""
+//    
+//      let writingTask = DispatchWorkItem {
+//        text.forEach { char in text
+//          DispatchQueue.main.async {
+//            textDisplay.append(char)
+//          }
+//          Thread.sleep(forTimeInterval: characterDelay/100)
+//        }
+//      }
+//        
+//      let queue: DispatchQueue = .init(label: "typespeed", qos: .userInteractive)
+//      queue.asyncAfter(deadline: .now() + 0.05, execute: writingTask)
+//    }
+    func typeWriter(at position: Int = 0) {
+        if position == 0 {
+            text = ""
         }
-      }
-        
-      let queue: DispatchQueue = .init(label: "typespeed", qos: .userInteractive)
-      queue.asyncAfter(deadline: .now() + 0.05, execute: writingTask)
+        if position < finalText.count {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+                text.append(finalText[position])
+                typeWriter(at: position + 1)
+            }
+        }
     }
+    
 }
-
-func greet(person: String) -> String {
-    let greeting = "Hello, " + person + "!"
-    return greeting
+extension String {
+    subscript(offset: Int) -> Character {
+        self[index(startIndex, offsetBy: offset)]
+    }
 }
 
 #Preview {
