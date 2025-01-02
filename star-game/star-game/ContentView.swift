@@ -33,29 +33,30 @@ struct ContentView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(Color.white)
                     Spacer()
-                    VStack() {
+                    VStack(alignment: .leading) {
                         Text(text)
+                            .multilineTextAlignment(.leading)
                                     Button("Start") {
                                         self.shouldHide = true
                                         typeWriter()
                                     }.opacity(shouldHide ? 0 : 1)
                     }
-                    .padding([.top, .leading, .trailing], 10.0)
+                    .padding([.top, .leading, .trailing], 17.0)
                     .font(.custom("kongtext", size: 16))
                     .fontWeight(.light)
                         .foregroundColor(Color.white)
-                    Spacer()
+                    Spacer().frame(height: shouldHide ? 0 : 50)
                     Text(resultMesssage)
                         .font(.custom("kongtext", size: 26))
                         .fontWeight(.heavy)
                         .foregroundColor(Color(hue: 0.153, saturation: 0.293, brightness: 1.0))
                         .multilineTextAlignment(.center)
-                    Spacer()
+                    Spacer().opacity(shouldHide ? 0 : 1)
                     VStack {
                         Text("Score: ")
                         Text("\(counter)")
                     }
-                    .font(.custom("kongtext", size: 18))
+                    .font(.custom("kongtext", size: 20))
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
                     Spacer()
@@ -72,9 +73,13 @@ struct ContentView: View {
                             Text("Losses: ")
                             Text(String(losses))
                         }
-                    }.font(.custom("kongtext", size: 12))
+                    }
+                    .padding(/*@START_MENU_TOKEN@*/.all, 20.0/*@END_MENU_TOKEN@*/)
+                    .font(.custom("kongtext", size: 15))
                         .fontWeight(.regular)
+                        .background(Color(hue: 0.795, saturation: 0.886, brightness: 0.561))
                         .foregroundColor(Color.white)
+                        .opacity(0.8)
                     Spacer()
                     HStack {
                         Button {
